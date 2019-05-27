@@ -14,6 +14,7 @@ public class Branch {
     @ManyToOne
     private LocationAddr location;
     @OneToMany(targetEntity = NetworkDevice.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "branch_id", updatable = false)
     private List<NetworkDevice> devices;
 
     public Branch() {

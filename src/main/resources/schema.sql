@@ -57,26 +57,26 @@
        references model
  );
 
-  create table branch_devices
-  (
-    branch_id  integer not null
-      constraint fklet9ntvyp31gdjkgqx23qy08r
-        references branch,
-    devices_id integer not null
-      constraint uk_hw2lkbjo23sj1b5yfookl1cek
-        unique
-      constraint fkyogbc4voi3ldkekn2w19dl6t
-        references device
-  );
+--   create table branch_devices
+--   (
+--     branch_id  integer not null
+--       constraint fklet9ntvyp31gdjkgqx23qy08r
+--         references branch,
+--     devices_id integer not null
+--       constraint uk_hw2lkbjo23sj1b5yfookl1cek
+--         unique
+--       constraint fkyogbc4voi3ldkekn2w19dl6t
+--         references device
+--   );
 
-  create table model_devices
-  (
-    model_id   integer not null
-      constraint fka8viyuatqxgb2dmvh7xly65c6
-        references model,
-    devices_id integer not null
-      constraint uk_kt3cis9sfyjvaas4l4fb0mqwt
-        unique
-      constraint fkdifvmeinvjk0u5cvlon6muh9j
-        references device
-  );
+--   create table model_devices
+--   (
+--     model_id   integer not null
+--       constraint fka8viyuatqxgb2dmvh7xly65c6
+--         references model,
+--     devices_id integer not null
+--       constraint uk_kt3cis9sfyjvaas4l4fb0mqwt
+--         unique
+--       constraint fkdifvmeinvjk0u5cvlon6muh9j
+--         references device
+--   );

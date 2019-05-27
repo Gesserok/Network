@@ -15,6 +15,6 @@
                                               (3, 3, 'ip-3', 'hostname-3', 3),
                                               (4, 2, 'ip-4', 'hostname-4', 1);
 
- INSERT INTO branch_devices (branch_id, devices_id) VALUES  (1,1), (2,2), (2,3), (1,4);
+--  INSERT INTO branch_devices (branch_id, devices_id) VALUES  (1,1), (2,2), (2,3), (1,4);
 
- INSERT INTO model_devices (model_id, devices_id) VALUES (1,1), (2,2), (2,3), (1,4);
+--  INSERT INTO model_devices (model_id, devices_id) VALUES (1,1), (2,2), (2,3), (1,4);
