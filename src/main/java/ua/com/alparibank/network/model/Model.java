@@ -17,6 +17,7 @@ public class Model {
     private String serialNumber;
     @JsonIgnore
     @OneToMany (cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "model_id", updatable = false)
     List<NetworkDevice> devices;
 
     public Model() {
