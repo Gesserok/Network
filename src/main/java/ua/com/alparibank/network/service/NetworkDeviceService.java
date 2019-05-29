@@ -34,11 +34,11 @@ public class NetworkDeviceService {
     }
 //
 //    public NetworkDevice addDevice(NetworkDevice location) {
-//        return networkDeviceRepository.save(location);
+//        return networkDeviceRepository.saveStartupConfig(location);
 //    }
 //
 //    public NetworkDevice updateDevice(int id, NetworkDevice location) {
-//        return networkDeviceRepository.save(location);
+//        return networkDeviceRepository.saveStartupConfig(location);
 //    }
 //
 //    public List<NetworkDevice> getByModelId(int modelId) {

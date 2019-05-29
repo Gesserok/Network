@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+    <Properties>
+        <Property name = "console.thresholdFilter">${bundle:application:logger.console.tresholdFilter}</Property>
+    </Properties>
+    <Appenders>
+        <Console name = "CONSOLE" target = "SYSTEM_OUT">
+            <ThresholdFilter level = "${console.thresholdFilter}" />
+            <PatternLayout pattern = "%d %-5p [%t] %c{10} - %m%n" />
+        </Console>
+        <Async name = "ASYNC">
+            <AppenderRef ref = "CONSOLE" />
+        </Async>
+    </Appenders>
+
+    <Loggers>
+        <!--<Logger name = "ua.com.alparibank.network.service" level = "debug" additivity = "false">-->
+            <!--<AppenderRef ref = "ASYNC" />-->
+        <!--</Logger>-->
+        <Root level = "debug">
+            <AppenderRef ref = "ASYNC" />
+        </Root>
+    </Loggers>
+</Configuration>

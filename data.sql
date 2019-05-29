@@ -10,7 +10,4 @@
                                           (2, 'Branch-2', 2),
                                           (3, 'Branch-3', 2);
 
- INSERT INTO device (id, model_id, ip, hostname, branch_id) VALUES (1, 1, 'ip-1', 'hostname-1', 1),
-                                              (2, 2, 'ip-2', 'hostname-2', 2),
-                                              (3, 3, 'ip-3', 'hostname-3', 3),
-                                              (4, 2, 'ip-4', 'hostname-4', 1);
+ INSERT INTO device (id, model_id, ip, hostname, branch_id) VALUES (1, 1, '10.41.255.132', 'kv-dc2-rtr-1', 1);
