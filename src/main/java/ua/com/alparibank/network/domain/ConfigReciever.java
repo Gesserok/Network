@@ -5,8 +5,6 @@ import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import ua.com.alparibank.network.model.NetworkDevice;
 import ua.com.alparibank.network.service.ConfigReceiverService;
 
@@ -19,14 +17,7 @@ public class ConfigReciever {
     private static Logger logger = LoggerFactory.getLogger(ConfigReceiverService.class);
 
     public void save(NetworkDevice device, String copyCommand) {
-
-        if (device.getHostname().contains("-fw-") && copyCommand.startsWith("copy start")) {
-            copyCommand = copyCommand.replace("copy start ftp://", "copy start ftp://   ");
-        }
-
-        if (device.getHostname().contains("-fw-") && copyCommand.startsWith("copy running")) {
-            copyCommand = copyCommand.replace("copy running ftp://", "copy /noconfirm running-config ftp://");
-        }
+        logger.trace(copyCommand);
 
         try {
 
@@ -34,8 +25,8 @@ public class ConfigReciever {
             config.put("StrictHostKeyChecking", "no");
             JSch jsch = new JSch();
             // Create a JSch session to connect to the server
-            Session session = jsch.getSession("ciscobackup", device.getIp(), 22);
-            session.setPassword("password");
+            Session session = jsch.getSession("cisco", device.getIp(), 22);
+            session.setPassword("!");
             session.setConfig(config);
             // Establish the connection
             logger.info("Establishing Connection...");
@@ -48,16 +39,14 @@ public class ConfigReciever {
             OutputStream out = channel.getOutputStream();
             channel.connect();
 
-            out.write(("\n").getBytes());
-            Thread.sleep(500);
-            out.write(("\n").getBytes());
-            Thread.sleep(500);
-            if (device.getHostname().contains("-fw-")){
+            if (!device.getHostname().contains("-fw-")) {
                 out.write(("\n").getBytes());
                 Thread.sleep(500);
                 out.write(("\n").getBytes());
                 Thread.sleep(500);
             }
+
+            out.write("\n".getBytes());
             out.flush();
             channel.connect();
             InputStream in = channel.getInputStream();
@@ -77,7 +66,8 @@ public class ConfigReciever {
                 }
                 Thread.sleep(1000);
             }
-
+//            out.close();
+//            in.close();
             channel.disconnect();
             session.disconnect();
             logger.info("DONE!!!");
