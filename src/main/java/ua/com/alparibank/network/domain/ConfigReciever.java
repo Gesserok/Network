@@ -2,6 +2,7 @@ package ua.com.alparibank.network.domain;
 
 import com.jcraft.jsch.ChannelExec;
 import com.jcraft.jsch.JSch;
+import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,12 +27,10 @@ public class ConfigReciever {
             JSch jsch = new JSch();
             // Create a JSch session to connect to the server
             Session session = jsch.getSession("cisco", device.getIp(), 22);
-            session.setPassword("!");
+            session.setPassword("password");
             session.setConfig(config);
             // Establish the connection
-            logger.info("Establishing Connection...");
             session.connect();
-            logger.info("Connection established.");
 
             ChannelExec channel = (ChannelExec) session.openChannel("exec");
             channel.setCommand(copyCommand);
@@ -66,13 +65,13 @@ public class ConfigReciever {
                 }
                 Thread.sleep(1000);
             }
-//            out.close();
-//            in.close();
             channel.disconnect();
             session.disconnect();
-            logger.info("DONE!!!");
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (JSchException e) {
+            logger.error("ERROR host = " + device.getHostname() + " ip = " + device.getIp() + "\n" + e);
+        }catch (Exception e) {
+            logger.error("ERROR host = " + device.getHostname() + " ip = " + device.getIp() + "\n" + e);
         }
+        logger.info("DONE\n host = " + device.getHostname() + " ip = " + device.getIp() + "\n");
     }
 }

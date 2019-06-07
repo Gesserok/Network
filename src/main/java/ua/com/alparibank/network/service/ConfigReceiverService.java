@@ -23,7 +23,7 @@ public class ConfigReceiverService {
     @Autowired
     private NetworkDeviceRepository networkDeviceRepository;
 
-    @Scheduled(cron = "0 0 23/6  * * ?")
+    @Scheduled(cron = "0 0 1/12  * * ?")
     public void saveStartupConfig() {
         String time = SIMPLE_DATE_FORMAT.format(new Date());
 
@@ -36,13 +36,13 @@ public class ConfigReceiverService {
                         configReciever.save(device, String.format("copy start ftp://10.41.8.13/%s/startup/%s-%s.cfg",
                                 deviceHostname, deviceHostname, time));
                     } else {
-                        configReciever.save(device, String.format("copy start ftp://ciscobackup:FTPPASSWORD@\n10.41.8.13\n\n\n%s/startup/%s-%s.cfg\n",
+                        configReciever.save(device, String.format("copy start ftp://ciscogit :password\n10.41.8.13\n\n\n%s/startup/%s-%s.cfg\n",
                                 deviceHostname, deviceHostname, time));
                     }
                 });
     }
 
-    @Scheduled(cron = "0 0 23/6 * * ?")
+    @Scheduled(cron = "0 0 1/12 * * ?")
     public void saveRunningConfig() {
         String time = SIMPLE_DATE_FORMAT.format(new Date());
 
@@ -54,7 +54,7 @@ public class ConfigReceiverService {
                         configReciever.save(device, String.format("copy running ftp://10.41.8.13/%s/running/%s-%s.cfg",
                                 deviceHostname, deviceHostname, time));
                     } else {
-                        configReciever.save(device, String.format("copy running ftp://ciscobackup:FTPPASSWORD@\n\n10.41.8.13\n\n\n%s/running/%s-%s.cfg\n",
+                        configReciever.save(device, String.format("copy running ftp://cisco:password\n\n10.41.8.13\n\n\n%s/running/%s-%s.cfg\n",
                                 deviceHostname, deviceHostname, time));
                     }
                 });

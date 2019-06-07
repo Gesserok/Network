@@ -26,8 +26,8 @@
    id     serial not null
      constraint model_pkey
        primary key,
-   serial varchar(255),
-   title  varchar(255)
+   manufacturer  varchar(255),
+   model varchar(255)
  );
 
    create table branch
@@ -35,7 +35,7 @@
    id          serial not null
      constraint branch_pkey
        primary key,
-   title       varchar(255),
+   manufacturer       varchar(255),
    location_id integer
      constraint fkgj7ygs16yusst2tqo9hwbricr
        references location
@@ -55,4 +55,15 @@
    model_id  integer
      constraint fkc4mplfuo8xrtaysjnia8lyl3h
        references model
+ );
+
+ create table serial_number
+ (
+   id        serial not null
+     constraint serial_namber_pkey
+       primary key,
+   device_id integer
+     constraint fkrl0oids6qg3b9q6ps2krlqjm4
+       references device,
+    serial_number varchar(255)
  );

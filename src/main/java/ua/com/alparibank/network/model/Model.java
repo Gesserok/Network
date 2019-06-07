@@ -12,9 +12,8 @@ public class Model {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String title;
-    @Column(name = "serial")
-    private String serialNumber;
+    private String manufacturer;
+    private String model;
     @JsonIgnore
     @OneToMany (cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "model_id", updatable = false)
@@ -31,20 +30,20 @@ public class Model {
         this.id = id;
     }
 
-    public String getTitle() {
-        return title;
+    public String getManufacturer() {
+        return manufacturer;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setManufacturer(String manufacturer) {
+        this.manufacturer = manufacturer;
     }
 
-    public String getSerialNumber() {
-        return serialNumber;
+    public String getModel() {
+        return model;
     }
 
-    public void setSerialNumber(String serialNumber) {
-        this.serialNumber = serialNumber;
+    public void setModel(String model) {
+        this.model = model;
     }
 
     public List<NetworkDevice> getDevices() {
@@ -72,8 +71,8 @@ public class Model {
     public String toString() {
         return "Model{" +
                 "id=" + id +
-                ", title='" + title + '\'' +
-                ", serialNumber='" + serialNumber + '\'' +
+                ", manufacturer='" + manufacturer + '\'' +
+                ", model='" + model + '\'' +
                 '}';
     }
 }

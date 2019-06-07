@@ -3,6 +3,7 @@ package ua.com.alparibank.network.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -10,6 +11,7 @@ import java.util.Objects;
 public class NetworkDevice {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Model model;
@@ -18,6 +20,10 @@ public class NetworkDevice {
     @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Branch branch;
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "device_id", updatable = false)
+    private List<SerialNumber> serials;
 
     public NetworkDevice() {
     }
@@ -60,6 +66,14 @@ public class NetworkDevice {
 
     public void setBranch(Branch branch) {
         this.branch = branch;
+    }
+
+    public List<SerialNumber> getSerials() {
+        return serials;
+    }
+
+    public void setSerials(List<SerialNumber> serials) {
+        this.serials = serials;
     }
 
     @Override
