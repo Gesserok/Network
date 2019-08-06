@@ -6,27 +6,45 @@ import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+import ua.com.alparibank.network.annotations.Profiling;
 import ua.com.alparibank.network.model.NetworkDevice;
 import ua.com.alparibank.network.service.ConfigReceiverService;
 
+import javax.annotation.PostConstruct;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Properties;
 
-public class ConfigReciever {
+
+@Profiling
+@Service ()
+public class ConfigReciever implements IConfigReceiver{
 
     private static Logger logger = LoggerFactory.getLogger(ConfigReceiverService.class);
 
-    public void save(NetworkDevice device, String copyCommand) {
+    public ConfigReciever(){
+        System.out.println("CONSTRUCKTOR DONE");
+    }
+    @PostConstruct
+    public void init(){
+        System.out.println("INIT METHOD DONE");
+    }
+
+    @Override
+    public int save(NetworkDevice device, String copyCommand) {
         logger.trace(copyCommand);
 
+        int status = 0;
         try {
 
             Properties config = new Properties();
             config.put("StrictHostKeyChecking", "no");
             JSch jsch = new JSch();
             // Create a JSch session to connect to the server
-            Session session = jsch.getSession("cisco", device.getIp(), 22);
+            Session session = jsch.getSession("login", device.getIp(), 22);
             session.setPassword("password");
             session.setConfig(config);
             // Establish the connection
@@ -61,6 +79,7 @@ public class ConfigReciever {
                 if (channel.isClosed()) {
                     logger.info("Exit Status: "
                             + channel.getExitStatus());
+                    status = channel.getExitStatus();
                     break;
                 }
                 Thread.sleep(1000);
@@ -68,10 +87,11 @@ public class ConfigReciever {
             channel.disconnect();
             session.disconnect();
         } catch (JSchException e) {
-            logger.error("ERROR host = " + device.getHostname() + " ip = " + device.getIp() + "\n" + e);
+            logger.trace("ERROR host = " + device.getHostname() + " ip = " + device.getIp() + "\n" + e);
         }catch (Exception e) {
-            logger.error("ERROR host = " + device.getHostname() + " ip = " + device.getIp() + "\n" + e);
+            logger.trace("ERROR host = " + device.getHostname() + " ip = " + device.getIp() + "\n" + e);
         }
         logger.info("DONE\n host = " + device.getHostname() + " ip = " + device.getIp() + "\n");
+        return status;
     }
 }

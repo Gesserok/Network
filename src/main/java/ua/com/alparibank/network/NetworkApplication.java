@@ -11,5 +11,4 @@ public class NetworkApplication {
     public static void main(String[] args) {
         SpringApplication.run(NetworkApplication.class, args);
     }
-
 }

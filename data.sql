@@ -46,3 +46,4 @@
  (19, 10, 'FCQ17240KNU'),
  (20, 10, 'FCQ1725X0QV');
 
+ INSERT INTO serial_number(id, device_id, serial_number) VALUES  (5, 2, 'JAD22020DGU');

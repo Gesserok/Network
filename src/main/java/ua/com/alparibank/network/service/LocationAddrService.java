@@ -17,9 +17,7 @@ public class LocationAddrService {
     private LocationAddrRepository locationAddrRepository;
 
     public List<LocationAddr> getAllLocationAddrs() {
-        List<LocationAddr> locations = new ArrayList<>();
-        locationAddrRepository.findAll().forEach(locations::add);
-        return locations;
+        return new ArrayList<>(locationAddrRepository.findAll());
     }
 
     public LocationAddr getLocationAddrById(int id) {

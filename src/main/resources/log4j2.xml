@@ -5,7 +5,7 @@
     </Properties>
     <Appenders>
         <Console name = "CONSOLE" target = "SYSTEM_OUT">
-            <ThresholdFilter level = "${consolegit push.thresholdFilter}" />
+            <ThresholdFilter level = "${console.thresholdFilter}" />
             <PatternLayout pattern = "%d %-5p [%t] %c{10} - %m%n" />
         </Console>
         <Async name = "ASYNC">
